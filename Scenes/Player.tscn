@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/SoundWave.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -15,21 +16,24 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+collision_layer = 2
+collision_mask = 2
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
 __meta__ = {
 "_edit_group_": true
 }
 speed = 5
 maxHealth = 1
-soundWave = null
-shootVolume = null
-hitVolume = null
+soundWave = ExtResource( 2 )
+shootVolume = 100
+hitVolume = 50
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
@@ -44,7 +48,7 @@ autostart = false
 
 [node name="BulletRay" type="RayCast2D" parent="." index="3"]
 
-enabled = false
+enabled = true
 exclude_parent = true
 cast_to = Vector2( 1000, 0 )
 collision_mask = 1
