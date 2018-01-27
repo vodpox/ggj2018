@@ -1,7 +1,7 @@
 extends Node2D
 
 var endptsTmp = []
-var endpoints = {}
+var endDist = {}
 var endObjects = {}
 var points = []
 var angles = []
@@ -12,7 +12,7 @@ var colorOffset = 5
 var deltaTime = 0
 
 func _ready():
-	start(Vector2(200, 200), 50)
+	start(Vector2(200, 200), 100)
 	#_draw()
 	
 	
@@ -34,10 +34,10 @@ func start(pos, size):
 		$Ray.cast_to = endptsTmp[i]
 		angles.push_back(angle)
 		if $Ray.is_colliding():
-			endpoints[angle] = $Ray.get_collision_point()
+			endDist[angle] = sqrt(pow($Ray.get_collision_point().x-position.x, 2) + pow($Ray.get_collision_point().y-position.y, 2))
 			endObjects[angle] = $Ray.get_collider()
 		else:
-			endpoints[angle] = endptsTmp[i]
+			endDist[angle] = sqrt(pow(endptsTmp[i].x-position.x, 2) + pow(endptsTmp[i].y-position.y, 2))
 			endObjects[angle] = null
 	
 	# enpoints don't exactly match the angles
@@ -96,22 +96,27 @@ func end():
 
 func _process(delta):
 	var pos
+	var spd
 	deltaTime += delta
 	#print(deltaTime)
-	if deltaTime >= 0.05:
-		deltaTime -= 0.05
+	if r-r1 < 10:
+		spd = 0.05
+	else:
+		spd = 0.02
+	if deltaTime >= spd:
+		deltaTime -= spd
 		points.clear()
 		r1 += 1
 		for i in angles:
 			pos = getPoint(i, r1)
-			#print(pos)
-			if pos == endpoints[i]:
-				print("yep")
+			
+			if r1 >= endDist[i]:
+				#print("yep")
 				if endObjects[i] != null:
 					endObjects[i].setIntensity(r1/r)
 				angles.erase(i)
 				endObjects.erase(i)
-				endpoints.erase(i)
+				endDist.erase(i)
 			else:
 				points.push_back(pos)
 	update()
