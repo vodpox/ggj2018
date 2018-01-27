@@ -1,6 +1,7 @@
 extends Area2D
 
 
+export (int) var collisionSize
 export (int) var speed
 export (int) var maxHealth
 export (PackedScene) var soundWave
@@ -37,9 +38,14 @@ func _process(delta):
 	
 	
 	if velocity.length() > 0:
-		velocity = velocity.normalized()
+		velocity = velocity.normalized() * speed
+		$CollisionRay.look_at(position + velocity)
+		
+		if $CollisionRay.is_colliding():
+			pass
+		else:
+			position += velocity
 	
-	position += velocity * speed
 	rotation = position.angle_to_point(get_viewport().get_mouse_position()) + PI
 	
 	velocity.x = 0
@@ -52,12 +58,15 @@ func shoot():
 	get_parent().add_child(shootWave);
 	shootWave.start(position, shootVolume)
 	
+	$BulletRay.enabled = true
 	if $BulletRay.is_colliding():
 		
 		var hitWave = soundWave.instance();
 		get_parent().add_child(hitWave);
 		hitWave.start($BulletRay.get_collision_point(), hitVolume)
-		
+	
+	$BulletRay.enabled = false
+	
 	isReloaded = false
 	$ReloadTimer.start()
 
