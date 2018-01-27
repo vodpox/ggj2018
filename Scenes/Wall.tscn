@@ -8,7 +8,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 4.01522, 4.00302 )
 
-[node name="Wall" type="Area2D" index="0"]
+[node name="Wall" type="Area2D"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -35,8 +35,8 @@ shape = SubResource( 1 )
 [node name="WallTimer" type="Timer" parent="." index="2"]
 
 process_mode = 1
-wait_time = 1.0
-one_shot = false
+wait_time = 0.05
+one_shot = true
 autostart = false
 
 [connection signal="timeout" from="WallTimer" to="." method="_on_WallTimer_timeout"]

@@ -7,10 +7,10 @@ path="res://.import/white_wall_no.png-802018c68d9b0241aba5e95a499c6419.stex"
 [deps]
 
 source_file="res://Scenes/white_wall_no.png"
-source_md5="35aa1731d693105495c0d71bab8baa2a"
+source_md5="ccc268b5cfba8234a9a580fe103cb6b7"
 
 dest_files=[ "res://.import/white_wall_no.png-802018c68d9b0241aba5e95a499c6419.stex" ]
-dest_md5="a05f44148de10676840990f7ee47d879"
+dest_md5="aed0f40f098882aa0d661532d6af3903"
 
 [params]
 

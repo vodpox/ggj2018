@@ -34,6 +34,7 @@ func start(pos, size):
 		$Ray.cast_to = endptsTmp[i]
 		angles.push_back(angle)
 		if $Ray.is_colliding():
+			print("yep " + str(angle))
 			endDist[angle] = sqrt(pow($Ray.get_collision_point().x-position.x, 2) + pow($Ray.get_collision_point().y-position.y, 2))
 			endObjects[angle] = $Ray.get_collider()
 		else:
