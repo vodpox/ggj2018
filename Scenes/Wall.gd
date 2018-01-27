@@ -7,10 +7,11 @@ func _ready():
 
 
 func setIntensity(col):
-	RGB = col
-	$Sprite.set_modulate(Color(RGB, RGB, RGB))
-	#update()
-	$WallTimer.start()
+	if RGB < col:
+		RGB = col
+		$Sprite.set_modulate(Color(RGB, RGB, RGB))
+		#update()
+		$WallTimer.start()
 
 func _on_WallTimer_timeout():
 	RGB -= 0.005

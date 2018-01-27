@@ -8,51 +8,84 @@ var angles = []
 var r1 = 0
 var r = 0
 var color
-var colorOffset = 5
 var deltaTime = 0
+var ptsDict = {}
 
 func _ready():
-	$Timer.start()
-	#_draw()
+	start(Vector2(200, 200), 100)
 	
 	
 func start(pos, size):
-	"""
-	for i in range(1, 200):
-		r = i
-		getEndCircle()
-		print(str(endptsTmp.size()))
-		endptsTmp.clear()
-	"""
+	#getEndCircle(4)
+	#print(endptsTmp)
+	
 	
 	position = pos
 	r = size
-	color = Color(r * colorOffset, r * colorOffset, r * colorOffset)
-	#getEndCircle()
+	#color = Color(r/300.0, r/300.0, r/300.0)
 	
-	var angDif = 360.0/(r*8)  #/endptsTmp.size()
+	var angDif = 360.0/(r*8)
 	var angle
-	
-	print(angDif)
 	
 	# Get wave end points and collided walls
 	for i in range(r*8):
 		angle = i * angDif
-		$Ray.cast_to = getPoint(angle, r)#endptsTmp[i]
+		$Ray.cast_to = getPoint(angle, r)
 		$Ray.force_raycast_update()
 		angles.push_back(angle)
 		if $Ray.is_colliding():
-			#print("yep " + str(angle))
 			endDist[angle] = sqrt(pow($Ray.get_collision_point().x-position.x, 2) + pow($Ray.get_collision_point().y-position.y, 2))
 			endObjects[angle] = $Ray.get_collider()
 		else:
-			endDist[angle] = r #sqrt(pow(endptsTmp[i].x-position.x, 2) + pow(endptsTmp[i].y-position.y, 2))
+			endDist[angle] = r
 			endObjects[angle] = null
 	
-	# enpoints don't exactly match the angles
-	
 
-func getEndCircle():
+func getPoint(angle, distance):
+	var x = distance * cos(deg2rad(angle))
+	var y = distance * sin(deg2rad(angle))
+	return Vector2(x, y)
+
+func _process(delta):
+	if r == 0:
+		return
+	if angles.size() == 0:
+		queue_free()
+		return
+	var col = float(r-r1)/r*(r/100.0)  # /r
+	var colOff = 0.2
+	var spd = 0.002
+	var point
+	deltaTime += delta
+
+	if deltaTime >= spd:
+		deltaTime -= spd
+		ptsDict.clear()
+		color = Color(col+colOff, col+colOff, col+colOff)
+		r1 += 1
+		for i in angles:
+			#if !endDist.has(i):
+			#	continue
+			if r1 >= endDist[i]:
+				if endObjects[i] != null:
+					endObjects[i].setIntensity(col)
+				#endObjects.erase(i)
+				#endDist.erase(i)
+				angles.erase(i)
+			else:
+				point = getPoint(i, r1)
+				if !ptsDict.has(point):
+					ptsDict[point] = 0
+				#points.push_back(point)
+	update()
+
+
+func _draw():
+	for i in ptsDict.keys():
+		draw_primitive([i], [color], PoolVector2Array( ))
+		
+		
+func getEndCircle(r):
 	var x = r - 1
 	var y = 0
 	var dx = 1
@@ -78,56 +111,3 @@ func getEndCircle():
 			x -= 1
 			dx += 2
 			err += dx - r*2
-
-
-
-func getPoint(angle, distance):
-	var x = distance * cos(deg2rad(angle))
-	var y = distance * sin(deg2rad(angle))
-	return Vector2(x, y)
-
-
-func end():
-	queue_free()
-
-
-func _process(delta):
-	if r == 0:
-		return
-	if angles.size() == 0:
-		end()
-		return
-	#var col = float(r-r1)/r
-	var col = 1.0-((1.0/r)*5)
-	var spd = 0.01
-	deltaTime += delta
-
-	if deltaTime >= spd:
-		deltaTime -= spd
-		points.clear()
-		#color = Color(col, col, col)
-		#color *= 1.0-((1.0/r)*6)
-		color *= col
-		#print(1.0-(1.0/r))
-		r1 += 1
-		for i in angles:
-			
-			if r1 >= endDist[i]:
-				if endObjects[i] != null:
-					endObjects[i].setIntensity(float(r-r1)/r)
-				angles.erase(i)
-				endObjects.erase(i)
-				endDist.erase(i)
-			else:
-				points.push_back(getPoint(i, r1))
-	update()
-
-
-
-func _draw():
-	for i in points:
-		draw_primitive([i], [color], PoolVector2Array( ))
-
-
-func _on_Timer_timeout():
-	start(Vector2(200, 200), 100)

@@ -49,14 +49,14 @@ func _process(delta):
 func shoot():
 	
 	var shootWave = soundWave.instance();
-	add_child(shootWave);
-	shootWave.start($BulletRay.position, shootVolume)
+	get_parent().add_child(shootWave);
+	shootWave.start(position, shootVolume)
 	
 	if $BulletRay.is_colliding():
 		
 		var hitWave = soundWave.instance();
-		#add_child(hitWave);
-		hitWave.start($BulletRay.position.x, hitVolume)
+		get_parent().add_child(hitWave);
+		hitWave.start($BulletRay.get_collision_point(), hitVolume)
 		
 	isReloaded = false
 	$ReloadTimer.start()

@@ -14,30 +14,20 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="Ray" type="RayCast2D" parent="." index="1"]
-
-enabled = true
-exclude_parent = true
-cast_to = Vector2( 0, 50 )
-collision_mask = 1
-_sections_unfolded = [ "Transform" ]
-
-[node name="SoundAdvanceTimer" type="Timer" parent="." index="2"]
+[node name="SoundAdvanceTimer" type="Timer" parent="." index="1"]
 
 process_mode = 1
 wait_time = 0.01
 one_shot = false
 autostart = false
 
-[node name="Timer" type="Timer" parent="." index="3"]
+[node name="Ray" type="RayCast2D" parent="." index="2"]
 
-process_mode = 1
-wait_time = 1.0
-one_shot = true
-autostart = false
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 50 )
+collision_mask = 1
 
 [connection signal="timeout" from="SoundAdvanceTimer" to="." method="_on_SoundAdvanceTimer_timeout"]
-
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 
 
