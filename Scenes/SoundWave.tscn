@@ -2,9 +2,12 @@
 
 [ext_resource path="res://Scenes/SoundWave.gd" type="Script" id=1]
 
-[node name="SoundWave" type="Node2D" index="0"]
+[node name="SoundWave" type="Node2D"]
 
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Sound" type="AudioStreamPlayer" parent="." index="0"]
 
@@ -16,11 +19,11 @@ bus = "Master"
 
 [node name="Ray" type="RayCast2D" parent="." index="1"]
 
-position = Vector2( 427, 310 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 50 )
 collision_mask = 1
+_sections_unfolded = [ "Transform" ]
 
 [node name="SoundAdvanceTimer" type="Timer" parent="." index="2"]
 

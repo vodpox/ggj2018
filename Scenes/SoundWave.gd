@@ -111,7 +111,7 @@ func _process(delta):
 			pos = getPoint(i, r1)
 			
 			if r1 >= endDist[i]:
-				#print("yep")
+
 				if endObjects[i] != null:
 					endObjects[i].setIntensity(r1/r)
 				angles.erase(i)
