@@ -1,6 +1,6 @@
 extends Area2D
 
-var RGB = 1
+var RGB = 0
 
 func _ready():
 	$WallTimer.start()

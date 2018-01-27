@@ -6,74 +6,70 @@ var endObjects = {}
 var points = []
 var angles = []
 var r1 = 0
-var r
+var r = 0
 var color
 var colorOffset = 5
 var deltaTime = 0
 
 func _ready():
-	start(Vector2(200, 200), 100)
+	$Timer.start()
 	#_draw()
 	
 	
 func start(pos, size):
+	"""
+	for i in range(1, 200):
+		r = i
+		getEndCircle()
+		print(str(endptsTmp.size()))
+		endptsTmp.clear()
+	"""
+	
 	position = pos
 	r = size
 	color = Color(r * colorOffset, r * colorOffset, r * colorOffset)
-	getEndCircle()
-	print(endptsTmp.size())
+	#getEndCircle()
 	
-	var angDif = 360.0/endptsTmp.size()
+	var angDif = 360.0/(r*8)  #/endptsTmp.size()
 	var angle
 	
 	print(angDif)
 	
 	# Get wave end points and collided walls
-	for i in range(endptsTmp.size()):
+	for i in range(r*8):
 		angle = i * angDif
-		$Ray.cast_to = endptsTmp[i]
+		$Ray.cast_to = getPoint(angle, r)#endptsTmp[i]
+		$Ray.force_raycast_update()
 		angles.push_back(angle)
 		if $Ray.is_colliding():
-			print("yep " + str(angle))
+			#print("yep " + str(angle))
 			endDist[angle] = sqrt(pow($Ray.get_collision_point().x-position.x, 2) + pow($Ray.get_collision_point().y-position.y, 2))
 			endObjects[angle] = $Ray.get_collider()
 		else:
-			endDist[angle] = sqrt(pow(endptsTmp[i].x-position.x, 2) + pow(endptsTmp[i].y-position.y, 2))
+			endDist[angle] = r #sqrt(pow(endptsTmp[i].x-position.x, 2) + pow(endptsTmp[i].y-position.y, 2))
 			endObjects[angle] = null
 	
 	# enpoints don't exactly match the angles
-
 	
 
 func getEndCircle():
-	#draw_primitive([Vector2(position.x, position.y)], [color], PoolVector2Array( ))
 	var x = r - 1
 	var y = 0
 	var dx = 1
 	var dy = 1
 	var err = dx - r*2
+	var vec = Vector2()
+	var dirs
+	var vecs = {}
 	
 	while x >= y:
-		"""
-		draw_primitive([Vector2(position.x + x, position.y + y)], [color], PoolVector2Array( ))
-		draw_primitive([Vector2(position.x - x, position.y + y)], [color], PoolVector2Array( ))
-		draw_primitive([Vector2(position.x + x, position.y - y)], [color], PoolVector2Array( ))
-		draw_primitive([Vector2(position.x - x, position.y - y)], [color], PoolVector2Array( ))
-		draw_primitive([Vector2(position.x + y, position.y + x)], [color], PoolVector2Array( ))
-		draw_primitive([Vector2(position.x - y, position.y + x)], [color], PoolVector2Array( ))
-		draw_primitive([Vector2(position.x + y, position.y - x)], [color], PoolVector2Array( ))
-		draw_primitive([Vector2(position.x - y, position.y - x)], [color], PoolVector2Array( ))
-		"""
-		
-		endptsTmp.push_back(Vector2(position.x + x, position.y + y))
-		endptsTmp.push_back(Vector2(position.x - x, position.y + y))
-		endptsTmp.push_back(Vector2(position.x + x, position.y - y))
-		endptsTmp.push_back(Vector2(position.x - x, position.y - y))
-		endptsTmp.push_back(Vector2(position.x + y, position.y + x))
-		endptsTmp.push_back(Vector2(position.x - y, position.y + x))
-		endptsTmp.push_back(Vector2(position.x + y, position.y - x))
-		endptsTmp.push_back(Vector2(position.x - y, position.y - x))
-		
+		dirs = [[x, y], [-x, y], [x, -y], [-x, -y], [y, x], [-y, x], [y, -x], [-y, -x]]
+		for i in dirs:
+			vec = Vector2(position.x + i[0], position.y + i[1])
+			if !vecs.has(vec):
+				vecs[vec] = 0
+				endptsTmp.push_back(vec)
+
 		if err <= 0:
 			y += 1
 			err += dy
@@ -96,42 +92,42 @@ func end():
 
 
 func _process(delta):
-	var pos
-	var spd
+	if r == 0:
+		return
+	if angles.size() == 0:
+		end()
+		return
+	#var col = float(r-r1)/r
+	var col = 1.0-((1.0/r)*5)
+	var spd = 0.01
 	deltaTime += delta
-	#print(deltaTime)
-	if r-r1 < 10:
-		spd = 0.05
-	else:
-		spd = 0.02
+
 	if deltaTime >= spd:
 		deltaTime -= spd
 		points.clear()
+		#color = Color(col, col, col)
+		#color *= 1.0-((1.0/r)*6)
+		color *= col
+		#print(1.0-(1.0/r))
 		r1 += 1
 		for i in angles:
-			pos = getPoint(i, r1)
 			
 			if r1 >= endDist[i]:
-
 				if endObjects[i] != null:
-					endObjects[i].setIntensity(r1/r)
+					endObjects[i].setIntensity(float(r-r1)/r)
 				angles.erase(i)
 				endObjects.erase(i)
 				endDist.erase(i)
 			else:
-				points.push_back(pos)
+				points.push_back(getPoint(i, r1))
 	update()
-			
-			
-		
-	#start(Vector2(200, 200), r + 100*delta)
-	#update()
-	#pass
 
 
-#func _on_SoundAdvanceTimer_timeout():
 
 func _draw():
-	#print(points.size())
 	for i in points:
 		draw_primitive([i], [color], PoolVector2Array( ))
+
+
+func _on_Timer_timeout():
+	start(Vector2(200, 200), 100)
