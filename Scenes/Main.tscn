@@ -4,12 +4,11 @@
 [ext_resource path="res://Scenes/SoundWave.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Wall.tscn" type="PackedScene" id=3]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" index="0"]
 
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
 collision_mask = 0
-_sections_unfolded = [ "Collision" ]
 
 [node name="SoundWave" parent="." index="1" instance=ExtResource( 2 )]
 
