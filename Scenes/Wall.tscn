@@ -8,20 +8,17 @@
 custom_solver_bias = 0.0
 extents = Vector2( 4.01522, 4.00302 )
 
-[node name="Wall" type="Area2D"]
+[node name="Wall" type="StaticBody2D" index="0"]
 
 input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
+collision_layer = 3
+collision_mask = 3
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
 script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "Visibility" ]
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
