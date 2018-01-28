@@ -8,7 +8,7 @@ enum ENTITY_TYPES {PLAYER, OBSTACLE, COLLECTIBLE}
 var grid_size = Vector2(408, 408)
 var grid = []
 
-onready var Obstacle = preload("res://Wall.tscn")
+onready var Obstacle = preload("res://Scenes/Wall.tscn")
 
 var type 
 

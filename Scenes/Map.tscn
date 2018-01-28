@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Grid.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Map.gd" type="Script" id=1]
 
-[node name="Node" type="Node" index="0"]
+[node name="Node" type="Node"]
 
 _sections_unfolded = [ "Pause" ]
 
