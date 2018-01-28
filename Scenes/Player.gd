@@ -16,6 +16,7 @@ func _init(mine):
 	isMine = mine
 
 
+
 func _ready():
 	#call_deferred("set_monitoring", false)
 	#hide()
@@ -83,3 +84,5 @@ func spawn(pos):
 func die():
 	call_deferred("set_monitoring", false)
 	hide()
+
+
