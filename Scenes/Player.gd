@@ -12,17 +12,11 @@ var velocity = Vector2()
 var isMine
 
 
-
-
 func _ready():
-	print("a")
-	#call_deferred("set_monitoring", false)
-	#hide()
 	pass
 
 
 func _process(delta):
-	print("b")
 	if Input.is_action_pressed("shoot"):
 		if isReloaded:
 			shoot()
@@ -51,7 +45,6 @@ func _process(delta):
 
 
 func shoot():
-	
 	var shootWave = soundWave.instance();
 	shootWave.start(position, shootVolume)
 	get_parent().add_child(shootWave);

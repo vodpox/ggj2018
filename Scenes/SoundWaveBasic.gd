@@ -50,7 +50,7 @@ func _physics_process(delta):
 		$CollisionShape2D.shape.radius += 2
 
 	
-	if circleRadii.size() == 0:
+	if circleColor <= 0.1:
 		#print("done")
 		queue_free()
 
