@@ -1,4 +1,4 @@
-extends Area2D
+extends KinematicBody2D
 
 
 export (int) var speed
@@ -37,9 +37,9 @@ func _process(delta):
 	
 	
 	if velocity.length() > 0:
-		velocity = velocity.normalized()
+		velocity = velocity.normalized() * speed * delta
+		move_and_collide(velocity)
 	
-	position += velocity * speed
 	rotation = position.angle_to_point(get_viewport().get_mouse_position()) + PI
 	
 	velocity.x = 0
@@ -57,7 +57,7 @@ func shoot():
 		var hitWave = soundWave.instance();
 		get_parent().add_child(hitWave);
 		hitWave.start($BulletRay.get_collision_point(), hitVolume)
-		
+	
 	isReloaded = false
 	$ReloadTimer.start()
 
@@ -68,10 +68,10 @@ func _on_ReloadTimer_timeout():
 
 func spawn(pos):
 	position = pos
-	monitoring = true
+	#monitoring = true
 	health = maxHealth
 	show()
-	monitoring = true
+	#monitoring = true
 
 
 

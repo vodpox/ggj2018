@@ -349,7 +349,7 @@ use_filter = false
 font_data = ExtResource( 7 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="Start screen" type="Control" index="0"]
+[node name="Start screen" type="Control"]
 
 anchor_left = 0.5
 anchor_top = 0.5
@@ -390,6 +390,7 @@ autostart = true
 
 [node name="StartButtonContainer" type="VBoxContainer" parent="." index="3"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -511,6 +512,7 @@ _sections_unfolded = [ "Size Flags", "Theme", "custom_fonts" ]
 
 [node name="MultiplayerButtonContainer" type="VBoxContainer" parent="." index="4"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -623,6 +625,7 @@ _sections_unfolded = [ "Size Flags", "Theme", "custom_colors", "custom_fonts" ]
 
 [node name="HostContainer" type="VBoxContainer" parent="." index="5"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -821,6 +824,7 @@ _sections_unfolded = [ "custom_fonts" ]
 
 [node name="FindContainer" type="VBoxContainer" parent="." index="6"]
 
+editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
