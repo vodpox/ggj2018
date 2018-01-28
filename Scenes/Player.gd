@@ -22,10 +22,13 @@ func _ready():
 
 
 func _process(delta):
-	print("b")
+	
 	if Input.is_action_pressed("shoot"):
 		if isReloaded:
 			shoot()
+	
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().change_scene("res://Scenes/Start screen.tscn")
 	
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
