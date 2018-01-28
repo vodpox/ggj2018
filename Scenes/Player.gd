@@ -12,9 +12,6 @@ var velocity = Vector2()
 var isMine
 
 
-func _init(mine):
-	isMine = mine
-
 
 
 func _ready():

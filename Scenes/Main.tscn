@@ -6,8 +6,6 @@
 
 [node name="Main" type="Node"]
 
-editor/display_folded = true
-
 [node name="SoundWaveBasic" parent="." index="0" instance=ExtResource( 1 )]
 
 position = Vector2( 118.728, 146.318 )
