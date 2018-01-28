@@ -21,8 +21,9 @@ func _on_Timer_timeout():
 
 
 func _on_BtnStart_pressed():
-	$StartButtonContainer.visible=false
-	$MultiplayerButtonContainer.visible=true
+	get_tree().change_scene("res://Scenes/Main.tscn")
+	#$StartButtonContainer.visible=false
+	#$MultiplayerButtonContainer.visible=true
 
 
 func _on_BtnBack_pressed():

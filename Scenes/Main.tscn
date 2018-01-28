@@ -6,6 +6,8 @@
 
 [node name="Main" type="Node"]
 
+editor/display_folded = true
+
 [node name="Player" parent="." index="0" instance=ExtResource( 1 )]
 
 _sections_unfolded = [ "Collision", "Z Index", "collision" ]
@@ -13,4 +15,5 @@ _sections_unfolded = [ "Collision", "Z Index", "collision" ]
 [node name="SoundWave" parent="." index="1" instance=ExtResource( 2 )]
 
 [node name="Node" parent="." index="2" instance=ExtResource( 3 )]
+
 
