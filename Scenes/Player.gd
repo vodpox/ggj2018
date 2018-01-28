@@ -47,8 +47,8 @@ func _process(delta):
 	velocity.x = 0
 	velocity.y = 0
 
-	print($Camera2D.get_camera_position())
-	print($Camera2D.get_camera_screen_center())
+	#print($Camera2D.get_camera_position())
+	#print($Camera2D.get_camera_screen_center())
 
 
 func shoot():
