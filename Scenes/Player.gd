@@ -11,6 +11,7 @@ var isReloaded = true
 var velocity = Vector2()
 
 
+
 func _ready():
 	#call_deferred("set_monitoring", false)
 	#hide()
@@ -78,3 +79,5 @@ func spawn(pos):
 func die():
 	call_deferred("set_monitoring", false)
 	hide()
+
+
