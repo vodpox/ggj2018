@@ -17,10 +17,6 @@ func _ready():
 
 
 func _process(delta):
-<<<<<<< HEAD
-=======
-	
->>>>>>> df2e60eec2a6e69138ad521f16f2806dacc34283
 	if Input.is_action_pressed("shoot"):
 		if isReloaded:
 			shoot()
@@ -45,7 +41,7 @@ func _process(delta):
 		velocity = velocity.normalized() * speed * delta
 		move_and_collide(velocity)
 	
-	rotation = position.angle_to_point(get_viewport().get_mouse_position()) + PI
+	rotation = position.angle_to_point(get_global_mouse_position()) + PI
 	
 	velocity.x = 0
 	velocity.y = 0
