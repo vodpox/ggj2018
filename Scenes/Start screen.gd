@@ -6,7 +6,8 @@ extends Control
 
 func _ready():
 	var localIp = IP.get_local_addresses()
-	$HostContainer/HBoxContainer/LbIPHost.text = localIp[3]
+	#$HostContainer/HBoxContainer/LbIPHost.text = localIp[3]
+	$HostContainer/HBoxContainer/LbIPHost.text = "127.0.1.1"
 	$SettingsContainer/CheckBox.pressed=true
 
 #func _process(delta):
@@ -20,8 +21,9 @@ func _on_Timer_timeout():
 
 
 func _on_BtnStart_pressed():
-	$StartButtonContainer.visible=false
-	$MultiplayerButtonContainer.visible=true
+	get_tree().change_scene("res://Scenes/Main.tscn")
+	#$StartButtonContainer.visible=false
+	#$MultiplayerButtonContainer.visible=true
 
 
 func _on_BtnBack_pressed():
@@ -58,6 +60,8 @@ func _on_BtnHostGame_pressed():
 	$StartScreenMusicTimer.stop()
 	#Start hosting a game
 	#Go to game scene
+	print("start server")
+	get_node("../Lobby").createServer(int(get_node("HostContainer/HBoxContainer/LbIPHost").text))
 
 
 func _on_BtnSearchGame_pressed():
@@ -65,6 +69,9 @@ func _on_BtnSearchGame_pressed():
 	$StartScreenMusicTimer.stop()
 	#Start searching for a game
 	#Go to game scene
+	print("start guest")
+	#print()
+	get_node("../Lobby").joinServer(get_node("FindContainer/HBoxContainer/TEIPSearch").text, int(get_node("FindContainer/HBoxContainer/TEIPSearch").text))
 
 
 func _on_BtnSettings_pressed():
