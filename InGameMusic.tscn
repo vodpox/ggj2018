@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Sounds/In game muzika Mixdown.wav" type="AudioStream" id=1]
+[ext_resource path="res://InGameMusic.gd" type="Script" id=2]
+
+[node name="InGameMusic" type="AudioStreamPlayer2D" index="0"]
+
+position = Vector2( 512.106, 300.115 )
+scale = Vector2( 16.078, 9.27979 )
+stream = ExtResource( 1 )
+volume_db = 0.0
+autoplay = true
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+script = ExtResource( 2 )
+
+[node name="InGameMusicTimer" type="Timer" parent="." index="0"]
+
+process_mode = 1
+wait_time = 15.95
+one_shot = false
+autostart = true
+
+[connection signal="finished" from="." to="." method="_on_InGameMusic_finished"]
+
+[connection signal="timeout" from="InGameMusicTimer" to="." method="_on_InGameMusicTimer_timeout"]
+
+
