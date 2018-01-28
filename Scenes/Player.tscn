@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/SoundWave.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 10.0
+
+[node name="Player" type="KinematicBody2D"]
+
+input_pickable = true
+collision_layer = 2
+collision_mask = 2
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "collision" ]
+speed = 45
+maxHealth = 1
+soundWave = ExtResource( 2 )
+shootVolume = 50
+hitVolume = 25
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+
+visible = false
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 1 )
+
+[node name="ReloadTimer" type="Timer" parent="." index="2"]
+
+process_mode = 1
+wait_time = 1.5
+one_shot = false
+autostart = false
+
+[node name="BulletRay" type="RayCast2D" parent="." index="3"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 1000, 0 )
+collision_mask = 1
+
+[node name="CoughTimer" type="Timer" parent="." index="4"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]
+
+
