@@ -45,13 +45,10 @@ func _process(delta):
 		velocity = velocity.normalized() * speed * delta
 		move_and_collide(velocity)
 	
-	rotation = position.angle_to_point(get_global_mouse_position()) + PI
+	rotation = position.angle_to_point(get_viewport().get_mouse_position()) + PI
 	
 	velocity.x = 0
 	velocity.y = 0
-	
-	print($Camera2D.get_camera_position())
-	print($Camera2D.get_camera_screen_center())
 
 
 func shoot():

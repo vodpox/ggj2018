@@ -14,7 +14,7 @@ func setIntensity(col):
 		$WallTimer.start()
 
 func _on_WallTimer_timeout():
-	RGB -= 0.005
+	RGB -= 0.01
 	if RGB < 0:
 		RGB = 0
 	
