@@ -17,47 +17,51 @@ func _ready():
 
 
 func _process(delta):
+	
 	if Input.is_action_pressed("shoot"):
 		if isReloaded:
 			shoot()
-	
+
 	if Input.is_action_pressed("ui_cancel"):
 		get_tree().change_scene("res://Scenes/Start screen.tscn")
-	
+
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
-	
+
 	if Input.is_action_pressed("ui_left"):
 		velocity.x -= 1
-	
+
 	if Input.is_action_pressed("ui_down"):
 		velocity.y += 1
-	
+
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
-	
-	
+
+
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed * delta
 		move_and_collide(velocity)
-	
+
 	rotation = position.angle_to_point(get_global_mouse_position()) + PI
-	
+
 	velocity.x = 0
 	velocity.y = 0
+
+	print($Camera2D.get_camera_position())
+	print($Camera2D.get_camera_screen_center())
 
 
 func shoot():
 	var shootWave = soundWave.instance();
 	shootWave.start(position, shootVolume)
 	get_parent().add_child(shootWave);
-	
+
 	if $BulletRay.is_colliding():
-		
+
 		var hitWave = soundWave.instance();
 		hitWave.start($BulletRay.get_collision_point(), hitVolume)
 		get_parent().add_child(hitWave);
-	
+
 	isReloaded = false
 	$ReloadTimer.start()
 
@@ -78,5 +82,3 @@ func spawn(pos):
 func die():
 	call_deferred("set_monitoring", false)
 	hide()
-
-
