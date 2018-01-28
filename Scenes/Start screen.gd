@@ -1,14 +1,12 @@
 extends Control
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 
 func _ready():
-	var localIp = IP.get_local_addresses()
+	#var localIp = IP.get_local_addresses()
 	#$HostContainer/HBoxContainer/LbIPHost.text = localIp[3]
-	$HostContainer/HBoxContainer/LbIPHost.text = "127.0.1.1"
-	$SettingsContainer/CheckBox.pressed=true
+	#$HostContainer/HBoxContainer/LbIPHost.text = "127.0.1.1"
+	#$SettingsContainer/CheckBox.pressed=true
+	pass
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
@@ -21,9 +19,10 @@ func _on_Timer_timeout():
 
 
 func _on_BtnStart_pressed():
-	get_tree().change_scene("res://Scenes/Main.tscn")
+	#get_tree().change_scene("res://Scenes/Main.tscn")
 	#$StartButtonContainer.visible=false
 	#$MultiplayerButtonContainer.visible=true
+	get_tree().change_scene("res://Scenes/Game.tscn")
 
 
 func _on_BtnBack_pressed():
@@ -60,8 +59,8 @@ func _on_BtnHostGame_pressed():
 	$StartScreenMusicTimer.stop()
 	#Start hosting a game
 	#Go to game scene
-	print("start server")
-	get_node("../Lobby").createServer(int(get_node("HostContainer/HBoxContainer/LbIPHost").text))
+	#print("start server")
+	#get_node("../Lobby").createServer(int(get_node("HostContainer/HBoxContainer/LbIPHost").text))
 
 
 func _on_BtnSearchGame_pressed():
@@ -69,9 +68,9 @@ func _on_BtnSearchGame_pressed():
 	$StartScreenMusicTimer.stop()
 	#Start searching for a game
 	#Go to game scene
-	print("start guest")
+	#print("start guest")
 	#print()
-	get_node("../Lobby").joinServer(get_node("FindContainer/HBoxContainer/TEIPSearch").text, int(get_node("FindContainer/HBoxContainer/TEIPSearch").text))
+	#get_node("../Lobby").joinServer(get_node("FindContainer/HBoxContainer/TEIPSearch").text, int(get_node("FindContainer/HBoxContainer/TEIPSearch").text))
 
 
 func _on_BtnSettings_pressed():
