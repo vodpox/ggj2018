@@ -17,10 +17,7 @@ func _ready():
 
 
 func _process(delta):
-<<<<<<< HEAD
-=======
 	
->>>>>>> df2e60eec2a6e69138ad521f16f2806dacc34283
 	if Input.is_action_pressed("shoot"):
 		if isReloaded:
 			shoot()
