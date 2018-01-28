@@ -46,7 +46,7 @@ func getPoint(angle, distance):
 	var y = distance * sin(deg2rad(angle))
 	return Vector2(x, y)
 
-func _process(delta):
+func _physics_process(delta):
 	if r == 0:
 		return
 	if angles.size() == 0:
@@ -56,27 +56,27 @@ func _process(delta):
 	var colOff = 0.2
 	var spd = 0.002
 	var point
-	deltaTime += delta
+	#deltaTime += delta
 
-	if deltaTime >= spd:
-		deltaTime -= spd
-		ptsDict.clear()
-		color = Color(col+colOff, col+colOff, col+colOff)
-		r1 += 1
-		for i in angles:
-			#if !endDist.has(i):
-			#	continue
-			if r1 >= endDist[i]:
-				if endObjects[i] != null:
-					endObjects[i].setIntensity(col)
-				#endObjects.erase(i)
-				#endDist.erase(i)
-				angles.erase(i)
-			else:
-				point = getPoint(i, r1)
-				if !ptsDict.has(point):
-					ptsDict[point] = 0
-				#points.push_back(point)
+	#if deltaTime >= spd:
+	#	deltaTime -= spd
+	ptsDict.clear()
+	color = Color(col+colOff, col+colOff, col+colOff)
+	r1 += 1
+	for i in angles:
+		#if !endDist.has(i):
+		#	continue
+		if r1 >= endDist[i]:
+			if endObjects[i] != null:
+				endObjects[i].setIntensity(col)
+			#endObjects.erase(i)
+			#endDist.erase(i)
+			angles.erase(i)
+		else:
+			point = getPoint(i, r1)
+			if !ptsDict.has(point):
+				ptsDict[point] = 0
+			#points.push_back(point)
 	update()
 
 
