@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/SoundWaveBasic.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -14,7 +16,13 @@ input_pickable = true
 collision_layer = 2
 collision_mask = 2
 collision/safe_margin = 0.08
+script = ExtResource( 1 )
 _sections_unfolded = [ "Collision", "collision" ]
+speed = 450
+maxHealth = 100
+soundWave = ExtResource( 2 )
+shootVolume = 100
+hitVolume = 50
 
 [node name="Camera2D" type="Camera2D" parent="." index="0"]
 
@@ -44,7 +52,7 @@ _sections_unfolded = [ "Drag Margin", "Limit", "Material", "Offset", "Smoothing"
 
 [node name="Sprite" type="Sprite" parent="." index="1"]
 
-texture = ExtResource( 1 )
+texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
 
